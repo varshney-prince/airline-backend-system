@@ -2,7 +2,7 @@ const express = require('express');
 const parser= require('body-parser');
 
 const { PORT } = require('./config/serverConfig');
-const CityRepository= require('./repositories/city-repository');
+const ApiRoutes= require('./routes/index');
 
 
 
@@ -12,10 +12,11 @@ const setupAndStartServer = async ()=>{
     app.use(parser.json());
     app.use(parser.urlencoded({ extended: true }));
 
+    app.use('/api',ApiRoutes);
+
     app.listen(PORT, () => {
         console.log(`Successfully started the server on PORT : ${PORT}`);
-        const repo= new CityRepository();
-        repo.createCity({name: "New Delhi"});
+        
     });
     
 
